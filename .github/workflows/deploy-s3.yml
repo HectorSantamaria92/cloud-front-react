@@ -18,7 +18,7 @@ jobs:
       - name: Configurar Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Instalar dependencias
@@ -37,7 +37,7 @@ jobs:
 
       - name: Sincronizar con S3
         run: |
-          aws s3 sync build/ s3://quiz-arena-hec --delete
+          aws s3 sync dist/ s3://quiz-arena-hec --delete
 
       - name: Invalidar caché de CloudFront
         run: |
