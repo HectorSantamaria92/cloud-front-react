@@ -182,3 +182,136 @@
     border-right-color: var(--border);
   }
 }
+
+/* Navegación */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+
+  a {
+    color: var(--text-h);
+    font-size: 16px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: box-shadow 0.3s, border-color 0.3s;
+
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    &.active {
+      color: var(--accent);
+      background: var(--accent-bg);
+      border-color: var(--accent-border);
+    }
+  }
+}
+
+/* Páginas */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 48px 20px;
+  flex-grow: 1;
+
+  a.counter {
+    text-decoration: none;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 480px;
+
+  .input {
+    flex: 1;
+  }
+  .counter {
+    margin-bottom: 0;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 480px;
+
+  .counter {
+    align-self: center;
+  }
+}
+
+.input {
+  font: inherit;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--social-bg);
+  color: var(--text-h);
+  resize: vertical;
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 480px;
+  text-align: left;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-h);
+    cursor: pointer;
+  }
+
+  input[type='checkbox'] {
+    accent-color: var(--accent);
+  }
+
+  .done label {
+    color: var(--text);
+    text-decoration: line-through;
+  }
+}
+
+.link-btn {
+  font: inherit;
+  font-size: 14px;
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
