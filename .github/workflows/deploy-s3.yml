@@ -1,0 +1,46 @@
+name: Deploy React to S3
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write   # necesario para OIDC
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          CI: false   # evita que warnings rompan el build (útil en CRA)
+
+      - name: Configurar credenciales AWS (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::188010837418:role/github-actions-deploy-role
+          aws-region: us-east-1
+
+      - name: Sincronizar con S3
+        run: |
+          aws s3 sync build/ s3://quiz-arena-hec --delete
+
+      - name: Invalidar caché de CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
